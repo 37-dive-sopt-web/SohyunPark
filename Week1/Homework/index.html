@@ -9,18 +9,58 @@
   <body>
     <header class="header">
       <div class="header-content">
-        <img class="profile" src="./images/profile.png" />
+        <img
+          class="profile"
+          src="./images/profile.png"
+          loading="lazy"
+          alt="헤더 프로필 이미지"
+        />
         <div class="header-title">
           <h3>박소현</h3>
           <p>안녕하세요. 웹계인입니다.</p>
         </div>
-        <nav>
-          <a href="https://github.com/Sohyunnnn">
-            <img class="github" src="./images/github.png" />
-          </a>
-        </nav>
+        <a href="https://github.com/Sohyunnnn" role="button">
+          <img
+            class="github"
+            src="./images/github.png"
+            loading="lazy"
+            alt="깃허브 이미지"
+          />
+        </a>
       </div>
     </header>
-    <main class="main">메인영역</main>
+    <main class="main">
+      <nav>사이드바</nav>
+      <div class="main-content">
+        <section class="hero">
+          <img
+            src="./images/hero-profile.jpeg"
+            class="hero-profile"
+            loading="lazy"
+            alt="히어로 프로필 이미지"
+          />
+          <div class="hero-content">
+            <h2>DIVE SOPT 37기 박소현입니다.</h2>
+            <p>다들 파이팅합시다 ᕦ(ò_óˇ)ᕤ</p>
+            <div class="hero-button-container">
+              <a
+                role="button"
+                href="https://www.instagram.com/sohyuuun_2/"
+                class="hero-button"
+              >
+                Instagram</a
+              >
+              <a
+                role="button"
+                href="mailto:thgus05061@naver.com"
+                class="hero-button"
+              >
+                email</a
+              >
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
   </body>
 </html>
