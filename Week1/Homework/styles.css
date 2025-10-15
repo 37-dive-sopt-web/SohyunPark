@@ -7,6 +7,7 @@ body {
 
 body {
   min-height: 100vh;
+  background-color: #fff3f9;
 }
 
 /* 헤더 영역 */
@@ -49,8 +50,6 @@ body {
 
 .main {
   padding-top: 90px;
-  min-height: 100vh;
-  background-color: #fff3f9;
   display: flex;
 }
 
