@@ -122,3 +122,12 @@ body {
   background-color: #abb1fc;
   border-radius: 30px;
 }
+
+/* 푸터 */
+
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  background-color: #dddddd;
+}
