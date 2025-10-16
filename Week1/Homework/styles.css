@@ -121,7 +121,15 @@ section > h3 {
 
 .sidebar li:hover {
   background-color: #bbd8ff;
-  border-radius: 8px;
+  border-radius: 4px;
+}
+
+.menu-item:first-child:hover {
+  border-radius: 12px 12px 4px 4px;
+}
+
+.menu-item:last-child:hover {
+  border-radius: 4px 4px 12px 12px;
 }
 
 .menu-list {
