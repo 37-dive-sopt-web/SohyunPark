@@ -196,10 +196,32 @@ section > h3 {
 
 .gallery-container {
   display: flex;
-  gap: 20px;
+  padding: 10px;
+  width: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
+}
+
+.gallery-group {
+  display: flex;
+  gap: 20px;
+  will-change: transform;
+  padding-right: 20px;
+  animation: scrolling 14s linear infinite;
+}
+
+@keyframes scrolling {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.gallery-group:hover {
+  animation-play-state: paused;
 }
 
 .gallery-image {
