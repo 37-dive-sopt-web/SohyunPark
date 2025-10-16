@@ -30,9 +30,17 @@
       </div>
     </header>
     <main class="main">
-      <nav>사이드바</nav>
+      <nav class="sidebar">
+        <ul class="menu-list">
+          <li class="menu-item"><a href="#hero">소개</a></li>
+          <li class="menu-item"><a href="#skill">나의 스킬</a></li>
+          <li class="menu-item"><a href="#figure">나의 모습</a></li>
+          <li class="menu-item"><a href="#gallery">사진첩</a></li>
+          <li class="menu-item"><a href="#message">한마디</a></li>
+        </ul>
+      </nav>
       <div class="main-content">
-        <section class="hero">
+        <section id="hero" class="hero">
           <img
             src="./images/hero-profile.jpeg"
             class="hero-profile"
@@ -60,7 +68,7 @@
           </div>
         </section>
 
-        <section>
+        <section id="skill">
           <h3>나의 스킬과 관심사</h3>
           <div class="skill-content">
             <span class="chip">HTML</span>
@@ -76,7 +84,7 @@
           </div>
         </section>
 
-        <section>
+        <section id="figure">
           <h3>나의 모습</h3>
           <div class="card-container">
             <article class="card">
@@ -172,7 +180,7 @@
           </div>
         </section>
 
-        <section>
+        <section id="gallery">
           <h3>사진첩</h3>
           <div class="gallery-container">
             <div class="gallery-group">
@@ -198,6 +206,10 @@
               <img class="gallery-image" src="./images/gallery/image10.jpeg" />
             </div>
           </div>
+        </section>
+        <section id="message" class="message">
+          <h3>한마디</h3>
+          <p>모두 반갑습니다! 다같이 웹 마스터 해보아요 ☺️</p>
         </section>
       </div>
     </main>

@@ -1,9 +1,17 @@
 /* 공통 */
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   height: 100%;
   margin: 0;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 h2,
@@ -18,10 +26,15 @@ body {
   flex-direction: column;
   min-height: 100vh;
   background-color: #efefef;
+  width: 100%;
+}
+
+section {
+  scroll-margin-top: 90px;
 }
 
 section > h3 {
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 .profile:hover,
@@ -72,14 +85,55 @@ section > h3 {
   padding-top: 90px;
   display: flex;
   flex: 1;
+  width: 100%;
 }
 
 .main-content {
-  width: 100%;
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 30px;
+  min-width: 0;
 }
+
+/* 사이드바 */
+
+.sidebar {
+  width: 200px;
+  padding: 20px;
+}
+
+.sidebar > ul {
+  gap: 4px;
+  list-style: none;
+  padding: 20px;
+  margin: 0;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: black;
+}
+
+.menu-item {
+  padding: 8px;
+}
+
+.sidebar li:hover {
+  background-color: #bbd8ff;
+  border-radius: 8px;
+}
+
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border-radius: 12px;
+  position: sticky;
+  top: 120px;
+}
+
+/* 히어로 영역 */
 
 .hero {
   background-color: #ffddee;
@@ -192,7 +246,7 @@ section > h3 {
   margin-top: 10px;
 }
 
-/* 갤러리 */
+/* 사진첩/갤러리 */
 
 .gallery-container {
   display: flex;
@@ -225,10 +279,16 @@ section > h3 {
 }
 
 .gallery-image {
-  width: 200px;
+  width: 250px;
   aspect-ratio: 4/3;
   object-fit: cover;
   border-radius: 12px;
+}
+
+/* 한마디 */
+
+.message {
+  margin-bottom: 50px;
 }
 
 /* 푸터 */
