@@ -37,6 +37,7 @@ section > h3 {
   border-bottom: 1px solid gray;
   box-sizing: border-box;
   background-color: white;
+  z-index: 1;
 }
 
 .header-content {
@@ -81,7 +82,6 @@ section > h3 {
 }
 
 .hero {
-  width: 100%;
   background-color: #ffddee;
   display: flex;
   gap: 30px;
@@ -118,7 +118,8 @@ section > h3 {
 .github:hover,
 .profile:hover,
 .hero-profile:hover,
-.hero-button:hover {
+.hero-button:hover,
+.gallery-image:hover {
   transform: scale(1.05);
   transition: transform 0.3s ease;
 }
@@ -155,6 +156,7 @@ section > h3 {
 
 .card:hover {
   transform: translateY(-10px);
+  transition: transform 0.3s ease;
   box-shadow: 1px 1px 10px gray;
 }
 
@@ -188,6 +190,23 @@ section > h3 {
 
 .card-content p {
   margin-top: 10px;
+}
+
+/* 갤러리 */
+
+.gallery-container {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+.gallery-image {
+  width: 200px;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
 /* 푸터 */
