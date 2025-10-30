@@ -1,0 +1,25 @@
+.table-section {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--white);
+  padding: 28px 24px;
+  border-radius: 12px;
+}
+
+.table-section__table {
+  margin-top: 16px;
+}
+
+.table-section__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-section__table-head {
+  background-color: var(--primary-100);
+}
+
+.table-section__table-head th {
+  padding: 16px 0;
+}
