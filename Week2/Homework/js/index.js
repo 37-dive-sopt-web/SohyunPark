@@ -13,8 +13,17 @@ document.addEventListener("DOMContentLoaded", () => {
   function renderTable(data) {
     tbody.innerHTML = "";
 
+    if (data.length === 0) {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+      <td colspan="8" style="padding: 20px; color: gray;">
+        데이터가 없습니다.
+      </td>
+    `;
+      tbody.appendChild(tr);
+      return;
+    }
 
-    
     data.forEach((member) => {
       const tr = document.createElement("tr");
       tr.innerHTML = `
