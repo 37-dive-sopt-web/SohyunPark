@@ -107,4 +107,14 @@ document.addEventListener("DOMContentLoaded", () => {
       checkbox.checked = isChecked;
     });
   });
+
+  tbody.addEventListener("change", (e) => {
+    if (e.target.type === "checkbox") {
+      const checkboxes = tbody.querySelectorAll("input[type='checkbox']");
+      const allChecked = Array.from(checkboxes).every((box) => box.checked);
+      selectAll.checked = allChecked;
+    }
+  });
+
+  addBtn.addEventListener("click", () => {});
 });
