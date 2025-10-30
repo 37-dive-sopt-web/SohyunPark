@@ -45,7 +45,7 @@
               </label>
               <label class="search__label">
                 <span class="search__label-text">성별</span>
-                <select class="search__select">
+                <select id="gender" class="search__select">
                   <option value="all">전체</option>
                   <option value="male">남자</option>
                   <option value="female">여자</option>
@@ -53,10 +53,10 @@
               </label>
               <label class="search__label">
                 <span class="search__label-text">역할</span>
-                <select class="search__select">
+                <select id="role" class="search__select">
                   <option value="all">전체</option>
-                  <option value="old">OB</option>
-                  <option value="young">YB</option>
+                  <option value="OB">OB</option>
+                  <option value="YB">YB</option>
                 </select>
               </label>
             </div>
@@ -64,7 +64,7 @@
               <label class="search__label">
                 <span class="search__label-text">금잔디조</span>
                 <input
-                  id="team"
+                  id="codeReviewGroup"
                   class="search__input"
                   placeholder="금잔디조를 입력하세요.(1~9)"
                 />
@@ -89,15 +89,22 @@
         <header class="table-section__header">
           <h2>37기 웹 파트 목록</h2>
           <div>
-            <button class="table-section__btn">선택 삭제</button>
-            <button class="table-section__btn">추가</button>
+            <button id="delete-btn" class="table-section__btn">
+              선택 삭제
+            </button>
+            <button id="add-btn" class="table-section__btn">추가</button>
           </div>
         </header>
 
         <table class="table-section__table">
           <thead class="table-section__table-head">
             <tr>
-              <th scope="col"><input type="checkbox" /></th>
+              <th scope="col">
+                <input
+                  type="checkbox"
+                  class="table-section__table-head-checkbox"
+                />
+              </th>
               <th scope="col">이름</th>
               <th scope="col">영문 이름</th>
               <th scope="col">깃허브</th>
