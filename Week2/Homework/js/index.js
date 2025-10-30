@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     data.forEach((member) => {
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td><input type="checkbox" /></td>
+        <td><input type="checkbox" id="${member.id}"/></td>
         <td>${member.name}</td>
         <td>${member.englishName}</td>
         <td><a href="https://github.com/${member.github}" target="_blank">${member.github}</a></td>
@@ -64,6 +64,24 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   form.addEventListener("reset", () => {
+    renderTable(members);
+  });
+
+  deleteBtn.addEventListener("click", () => {
+    const checkedBoxes = Array.from(
+      tbody.querySelectorAll("input[type='checkbox']:checked")
+    );
+
+    if (checkedBoxes.length === 0) {
+      alert("삭제할 멤버가 없습니다.");
+      return;
+    }
+
+    const checkedIds = checkedBoxes.map((box) => parseInt(box.id, 10));
+
+    members = members.filter((member) => !checkedIds.includes(member.id));
+
+    saveMembers(members);
     renderTable(members);
   });
 });
