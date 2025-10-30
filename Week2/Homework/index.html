@@ -14,75 +14,77 @@
       <p>🛸DIVE SOPT 37기 웹 박소현🛸</p>
     </header>
     <main class="main">
-      <form class="search">
-        <legend class="search__title">검색 필터</legend>
-        <fieldset class="search__group">
-          <label class="search__label">
-            <span class="search__label-text">이름</span>
-            <input
-              id="name"
-              class="search__input"
-              placeholder="이름을 입력하세요."
-            />
-          </label>
-          <label class="search__label">
-            <span class="search__label-text">영문 이름</span>
-            <input
-              id="englishName"
-              class="search__input"
-              placeholder="영문 이름을 입력하세요."
-            />
-          </label>
-          <div class="search__inner-group">
+      <section>
+        <form class="search">
+          <legend class="search__title">검색 필터</legend>
+          <fieldset class="search__group">
             <label class="search__label">
-              <span class="search__label-text">깃허브</span>
+              <span class="search__label-text">이름</span>
               <input
-                id="githubId"
+                id="name"
                 class="search__input"
-                placeholder="깃허브 아이디를 입력하세요."
+                placeholder="이름을 입력하세요."
               />
             </label>
             <label class="search__label">
-              <span class="search__label-text">성별</span>
-              <select class="search__select">
-                <option value="all">전체</option>
-                <option value="male">남자</option>
-                <option value="female">여자</option>
-              </select>
-            </label>
-            <label class="search__label">
-              <span class="search__label-text">역할</span>
-              <select class="search__select">
-                <option value="all">전체</option>
-                <option value="old">OB</option>
-                <option value="young">YB</option>
-              </select>
-            </label>
-          </div>
-          <div class="search__inner-group">
-            <label class="search__label">
-              <span class="search__label-text">금잔디조</span>
+              <span class="search__label-text">영문 이름</span>
               <input
-                id="team"
+                id="englishName"
                 class="search__input"
-                placeholder="금잔디조를 입력하세요.(1~9)"
+                placeholder="영문 이름을 입력하세요."
               />
             </label>
-            <label class="search__label">
-              <span class="search__label-text">나이</span>
-              <input
-                id="age"
-                class="search__input"
-                placeholder="나이을 입력하세요."
-              />
-            </label>
-          </div>
-          <div class="search__inner-group">
-            <button type="submit" class="search___btn">적용</button>
-            <button type="reset" class="search___btn">초기화</button>
-          </div>
-        </fieldset>
-      </form>
+            <div class="search__inner-group">
+              <label class="search__label">
+                <span class="search__label-text">깃허브</span>
+                <input
+                  id="githubId"
+                  class="search__input"
+                  placeholder="깃허브 아이디를 입력하세요."
+                />
+              </label>
+              <label class="search__label">
+                <span class="search__label-text">성별</span>
+                <select class="search__select">
+                  <option value="all">전체</option>
+                  <option value="male">남자</option>
+                  <option value="female">여자</option>
+                </select>
+              </label>
+              <label class="search__label">
+                <span class="search__label-text">역할</span>
+                <select class="search__select">
+                  <option value="all">전체</option>
+                  <option value="old">OB</option>
+                  <option value="young">YB</option>
+                </select>
+              </label>
+            </div>
+            <div class="search__inner-group">
+              <label class="search__label">
+                <span class="search__label-text">금잔디조</span>
+                <input
+                  id="team"
+                  class="search__input"
+                  placeholder="금잔디조를 입력하세요.(1~9)"
+                />
+              </label>
+              <label class="search__label">
+                <span class="search__label-text">나이</span>
+                <input
+                  id="age"
+                  class="search__input"
+                  placeholder="나이을 입력하세요."
+                />
+              </label>
+            </div>
+            <div class="search__inner-group">
+              <button type="submit" class="search___btn">적용</button>
+              <button type="reset" class="search___btn">초기화</button>
+            </div>
+          </fieldset>
+        </form>
+      </section>
       <section class="table-section">
         <header class="table-section__header">
           <h2>37기 웹 파트 목록</h2>

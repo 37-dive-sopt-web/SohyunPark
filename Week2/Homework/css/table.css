@@ -4,6 +4,7 @@
   background-color: var(--white);
   padding: 28px 24px;
   border-radius: 12px;
+  margin-bottom: 40px;
 }
 
 .table-section__table {
@@ -24,10 +25,18 @@
   padding: 16px 0;
 }
 
-.table-section__btn{
+.table-section__btn {
   background-color: var(--primary-400);
   color: var(--white);
   border: none;
   border-radius: 8px;
   padding: 10px 16px;
+}
+
+.table-section__table-body td {
+  padding: 12px;
+}
+
+.table-section__table-body td:first-child {
+  text-align: center;
 }
