@@ -6,11 +6,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const addBtn = document.querySelector("#add-btn");
   const tbody = document.querySelector(".table-section__table-body");
   let members = loadMembers();
+  const selectAll = document.querySelector("#select-all");
 
   renderTable(members);
 
   function renderTable(data) {
     tbody.innerHTML = "";
+
+
+    
     data.forEach((member) => {
       const tr = document.createElement("tr");
       tr.innerHTML = `
@@ -83,5 +87,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     saveMembers(members);
     renderTable(members);
+
+    if (selectAll) selectAll.checked = false;
+  });
+
+  selectAll.addEventListener("change", (e) => {
+    const isChecked = e.target.checked;
+    const checkboxes = tbody.querySelectorAll("input[type='checkbox']");
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = isChecked;
+    });
   });
 });
