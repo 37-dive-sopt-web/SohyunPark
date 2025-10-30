@@ -23,3 +23,11 @@
 .table-section__table-head th {
   padding: 16px 0;
 }
+
+.table-section__btn{
+  background-color: var(--primary-400);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+}
