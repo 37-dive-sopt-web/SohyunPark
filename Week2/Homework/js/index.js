@@ -8,6 +8,10 @@ document.addEventListener("DOMContentLoaded", () => {
   let members = loadMembers();
   const selectAll = document.querySelector("#select-all");
 
+  const modal = document.querySelector(".modal");
+  const closeModalBtn = document.querySelector(".modal__close-btn");
+  const modalForm = document.querySelector(".modal__form");
+
   renderTable(members);
 
   function renderTable(data) {
@@ -116,5 +120,62 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  addBtn.addEventListener("click", () => {});
+  addBtn.addEventListener("click", () => {
+    modal.classList.add("show");
+  });
+
+  closeModalBtn.addEventListener("click", () => {
+    modal.classList.remove("show");
+  });
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) modal.classList.remove("show");
+  });
+
+  modalForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const name = document.querySelector("#modal-name").value.trim();
+    const englishName = document
+      .querySelector("#modal-englishName")
+      .value.trim();
+    const github = document.querySelector("#modal-githubId").value.trim();
+    const gender = document.querySelector("#modal-gender").value;
+    const role = document.querySelector("#modal-role").value;
+    const codeReviewGroup = parseInt(
+      document.querySelector("#modal-codeReviewGroup").value,
+      10
+    );
+    const age = parseInt(document.querySelector("#modal-age").value, 10);
+
+    if (
+      !name ||
+      !englishName ||
+      !github ||
+      gender === "select" ||
+      role === "select" ||
+      isNaN(age) ||
+      isNaN(codeReviewGroup)
+    ) {
+      alert("모든 필드를 올바르게 입력해주세요!");
+      return;
+    }
+
+    const newMember = {
+      id: members.length > 0 ? members[members.length - 1].id + 1 : 1,
+      name,
+      englishName,
+      github,
+      gender,
+      role,
+      codeReviewGroup,
+      age,
+    };
+
+    members.push(newMember);
+    saveMembers(members);
+    renderTable(members);
+    modal.classList.remove("show");
+    modalForm.reset();
+  });
 });
