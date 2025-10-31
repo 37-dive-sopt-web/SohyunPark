@@ -119,5 +119,78 @@
         </table>
       </section>
     </main>
+    <div class="modal">
+      <div class="modal__content">
+        <div class="modal__header">
+          <h2>멤버 추가</h2>
+          <button class="modal__close-btn">X</button>
+        </div>
+        <form class="modal__form">
+          <label class="modal__label">
+            이름
+            <input
+              id="modal-name"
+              class="modal__input"
+              placeholder="이름을 입력하세요."
+            />
+          </label>
+          <label class="modal__label">
+            영문 이름
+            <input
+              id="modal-englishName"
+              class="modal__input"
+              placeholder="영문 이름을 입력하세요."
+            />
+          </label>
+          <label class="modal__label">
+            깃허브
+            <input
+              id="modal-githubId"
+              class="modal__input"
+              placeholder="깃허브 아이디를 입력하세요."
+            />
+          </label>
+          <div class="modal__inner-group">
+            <label class="modal__label">
+              성별
+              <select id="modal-gender" class="modal__select">
+                <option value="select">선택</option>
+                <option value="male">남자</option>
+                <option value=" female">여자</option>
+              </select> </label
+            ><label class="modal__label">
+              역할
+              <select id="modal-role" class="modal__select">
+                <option value="select">선택</option>
+                <option value="OB">OB</option>
+                <option value="YB">YB</option>
+              </select>
+            </label>
+          </div>
+          <div class="modal__inner-group">
+            <label class="modal__label">
+              금잔디조
+              <input
+                id="modal-codeReviewGroup"
+                class="modal__input"
+                placeholder="금잔디조를 입력하세요.(1~9)"
+              />
+            </label>
+            <label class="modal__label">
+              나이
+              <input
+                id="modal-age"
+                class="modal__input"
+                placeholder="나이를 입력하세요."
+              />
+            </label>
+          </div>
+
+          <button type="submit" id="modal__add-btn" class="modal__add-btn">
+            추가
+          </button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>

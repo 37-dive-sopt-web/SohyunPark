@@ -61,7 +61,6 @@
   flex: 1;
   height: 40px;
   border-radius: 8px;
-  border: none;
   background-color: var(--primary-400);
   color: var(--white);
 }
