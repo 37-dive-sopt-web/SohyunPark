@@ -161,8 +161,11 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    const newId =
+      members.length > 0 ? Math.max(...members.map((m) => m.id)) + 1 : 1;
+
     const newMember = {
-      id: members.length > 0 ? members[members.length - 1].id + 1 : 1,
+      newId,
       name,
       englishName,
       github,
