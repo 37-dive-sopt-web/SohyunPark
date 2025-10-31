@@ -1,19 +1,12 @@
 import { renderTable } from "./table.js";
+import { getFormData } from "./utils.js";
 
 export function setupFiltering(filteringForm, members, tbody) {
   filteringForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const name = document.querySelector("#name").value.trim();
-    const englishName = document.querySelector("#englishName").value.trim();
-    const github = document.querySelector("#githubId").value.trim();
-    const gender = document.querySelector("#gender").value;
-    const role = document.querySelector("#role").value;
-    const codeReviewGroup = parseInt(
-      document.querySelector("#codeReviewGroup").value,
-      10
-    );
-    const age = parseInt(document.querySelector("#age").value, 10);
+    const { name, englishName, github, gender, role, codeReviewGroup, age } =
+      getFormData();
 
     const filteredMembers = members.filter((member) => {
       return (
