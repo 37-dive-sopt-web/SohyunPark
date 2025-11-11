@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import Modal from "./Modal";
+import { createPortal } from "react-dom";
 
 /* Fisher-Yates 셔플 알고리즘 */
 function shuffle(array) {
@@ -123,21 +125,28 @@ export default function Gameboard() {
 
   return (
     <div className="relative h-full flex flex-col w-full">
-      {status === "win" && (
-        <div className="absolute inset-0 flex items-center justify-center bg-white/60 backdrop-blur-sm z-20">
-          <div className="bg-white/90 p-6 rounded-xl shadow-lg text-center border border-blue-200">
-            <h3 className="text-2xl font-bold text-blue-900 mb-2">
-              축하해요!!! 🎉
-            </h3>
-            <p className="text-blue-700 mb-1">
+      {status === "win" &&
+        createPortal(
+          <Modal>
+            <h2 className="text-xl font-bold text-blue-900">축하해요 🎉</h2>
+            <p>
               Level {level}을 {elapsed.toFixed(2)}초 만에 클리어했어요!
             </p>
-            <p className="text-blue-500 font-medium">
-              3초 후 자동으로 새 게임을 시작해요
-            </p>
-          </div>
-        </div>
-      )}
+            <p>3초 후 자동으로 새 게임을 시작해요</p>
+          </Modal>,
+          document.getElementById("modal-root")
+        )}
+
+      {status === "lose" &&
+        createPortal(
+          <Modal
+            title="시간 초과! 😢"
+            message={`아쉽게도 Level ${level}을 클리어하지 못했어요.`}
+            subMessage="3초 후 자동으로 새 게임을 시작해요"
+            color="red"
+          ></Modal>,
+          document.getElementById("modal-root")
+        )}
 
       <div className="flex-1 bg-blue-50 rounded-2xl flex justify-between p-6 gap-5">
         {/* 왼쪽 보드 */}
