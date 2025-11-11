@@ -92,6 +92,32 @@ export default function Gameboard() {
     }
   }, [matched, deck, status]);
 
+  /* ✅ 승리 시 기록 저장 */
+  useEffect(() => {
+    if (status === "win" && elapsed > 0) {
+      const record = {
+        id: Date.now(),
+        date: new Date().toLocaleString("ko-KR", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        }),
+        level,
+        clearTime: parseFloat(elapsed.toFixed(2)),
+      };
+
+      const existing = JSON.parse(localStorage.getItem("rankings") || "[]");
+      const updated = [...existing, record]
+        .sort((a, b) => a.clearTime - b.clearTime)
+        .slice(0, 50);
+
+      localStorage.setItem("rankings", JSON.stringify(updated));
+    }
+  }, [status, elapsed]);
+
   /* 승리 또는 패배 후 3초 뒤 자동 리셋 */
   useEffect(() => {
     if (status === "win" || status === "lose") {
