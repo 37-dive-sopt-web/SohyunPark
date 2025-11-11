@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import Modal from "./Modal";
 
+const LEVEL_CONFIG = {
+  1: { rows: 4, cols: 4, limit: 45 },
+  2: { rows: 4, cols: 6, limit: 60 },
+  3: { rows: 6, cols: 6, limit: 100 },
+};
+
 /* Fisher-Yates 셔플 알고리즘 */
 function shuffle(array) {
   const arr = array.slice();
@@ -11,9 +17,9 @@ function shuffle(array) {
   return arr;
 }
 
+/* ✅ 카드 덱 생성 함수 */
 function buildDeck(level = 1) {
-  const LEVEL_TO_GRID = { 1: [4, 4], 2: [4, 6], 3: [6, 6] };
-  const [rows, cols] = LEVEL_TO_GRID[level];
+  const { rows, cols } = LEVEL_CONFIG[level];
   const total = rows * cols;
   const pairs = total / 2;
   const base = Array.from({ length: pairs }, (_, i) => i + 1);
@@ -31,43 +37,42 @@ export default function Gameboard() {
   const [deck, setDeck] = useState([]);
   const [flipped, setFlipped] = useState([]);
   const [matched, setMatched] = useState([]);
-  const [timeLeft, setTimeLeft] = useState(45);
+  const [timeLeft, setTimeLeft] = useState(LEVEL_CONFIG[1].limit);
   const [status, setStatus] = useState("idle");
   const [history, setHistory] = useState([]);
   const [elapsed, setElapsed] = useState(0);
+  const [startTime, setStartTime] = useState(null);
 
-  const LEVEL_TO_GRID = { 1: [4, 4], 2: [4, 6], 3: [6, 6] };
-
+  /* ✅ 게임 시작 함수 */
   const startGame = () => {
+    const { limit } = LEVEL_CONFIG[level];
     setDeck(buildDeck(level));
     setFlipped([]);
     setMatched([]);
     setStatus("playing");
-    setTimeLeft(45);
+    setTimeLeft(limit);
     setElapsed(0);
     setHistory([]);
+    setStartTime(performance.now());
   };
 
-  // ✅ 자동 시작
+  /* ✅ 자동 시작 */
   useEffect(() => {
     startGame();
   }, [level]);
 
   /* 제한시간 타이머 */
   useEffect(() => {
-    if (status !== "playing") return;
+    if (status !== "playing" || !startTime) return;
 
-    const totalDuration = 45_000; // 45초 = 45000ms
-    const start = performance.now();
+    const totalDuration = LEVEL_CONFIG[level].limit * 1000;
 
     let animationId;
-
     const tick = (now) => {
-      const elapsedMs = now - start;
+      const elapsedMs = now - startTime;
       const remaining = Math.max((totalDuration - elapsedMs) / 1000, 0);
       setTimeLeft(remaining);
 
-      // ✅ 게임이 끝나면 타이머 즉시 중단
       if (status !== "playing") return;
 
       if (remaining > 0) {
@@ -78,15 +83,13 @@ export default function Gameboard() {
     };
 
     animationId = requestAnimationFrame(tick);
-
-    // ✅ cleanup
     return () => cancelAnimationFrame(animationId);
-  }, [status, level]);
+  }, [status, level, startTime]);
 
   /* 승리 판정 */
   useEffect(() => {
     if (status === "playing" && matched.length === deck.length && deck.length) {
-      const clearTime = 45 - timeLeft;
+      const clearTime = LEVEL_CONFIG[level].limit - timeLeft;
       setElapsed(clearTime);
       setStatus("win");
     }
@@ -152,7 +155,7 @@ export default function Gameboard() {
     }
   };
 
-  const [rows, cols] = LEVEL_TO_GRID[level];
+  const { rows, cols } = LEVEL_CONFIG[level];
 
   return (
     <div className="relative h-full flex flex-col w-full">
@@ -166,7 +169,6 @@ export default function Gameboard() {
           color="blue"
         />
       )}
-
       {status === "lose" && (
         <Modal
           title="시간 초과 😢"
@@ -188,12 +190,12 @@ export default function Gameboard() {
               게임 리셋
             </button>
           </div>
+
           <div
             className="grid gap-2 bg-blue-50 rounded-lg justify-center"
             style={{
               gridTemplateColumns: `repeat(${cols}, 1fr)`,
               gridTemplateRows: `repeat(${rows}, 1fr)`,
-              boxSizing: "border-box",
             }}
           >
             {deck.map((card) => {
