@@ -33,6 +33,7 @@ export default function Gameboard() {
   const [timeLeft, setTimeLeft] = useState(45);
   const [status, setStatus] = useState("idle");
   const [history, setHistory] = useState([]);
+  const [elapsed, setElapsed] = useState(0);
 
   const LEVEL_TO_GRID = { 1: [4, 4], 2: [4, 6], 3: [6, 6] };
 
@@ -42,10 +43,11 @@ export default function Gameboard() {
     setMatched([]);
     setStatus("playing");
     setTimeLeft(45);
+    setElapsed(0);
     setHistory([]);
   };
 
-  // 게임 자동 시작 (처음 렌더링 시 실행)
+  // ✅ 자동 시작
   useEffect(() => {
     startGame();
   }, [level]);
@@ -53,18 +55,32 @@ export default function Gameboard() {
   /* 제한시간 타이머 */
   useEffect(() => {
     if (status !== "playing") return;
-    if (timeLeft <= 0) {
-      setStatus("lose");
-      return;
-    }
 
-    const timer = setInterval(() => setTimeLeft((t) => t - 1), 1000);
-    return () => clearInterval(timer);
-  }, [status, timeLeft]);
+    const totalDuration = 45_000; // 45초 = 45000ms
+    const start = performance.now();
+
+    const tick = (now) => {
+      const elapsedMs = now - start;
+      const remaining = Math.max((totalDuration - elapsedMs) / 1000, 0);
+      setTimeLeft(remaining);
+
+      if (remaining > 0 && status === "playing") {
+        requestAnimationFrame(tick);
+      } else if (remaining <= 0) {
+        setStatus("lose");
+      }
+    };
+
+    const animationId = requestAnimationFrame(tick);
+
+    return () => cancelAnimationFrame(animationId);
+  }, [status, level]);
 
   /* 승리 판정 */
   useEffect(() => {
     if (status === "playing" && matched.length === deck.length && deck.length) {
+      const clearTime = 45 - timeLeft;
+      setElapsed(clearTime);
       setStatus("win");
     }
   }, [matched, deck, status]);
@@ -88,7 +104,6 @@ export default function Gameboard() {
 
     if (newFlipped.length === 2) {
       const [a, b] = newFlipped.map((id) => deck.find((c) => c.id === id));
-
       const isMatch = a.value === b.value;
       setHistory((prev) => [
         `${a.value},${b.value} → ${isMatch ? "성공" : "실패"}`,
@@ -107,8 +122,25 @@ export default function Gameboard() {
   const [rows, cols] = LEVEL_TO_GRID[level];
 
   return (
-    <div className="h-full flex flex-col w-full">
+    <div className="relative h-full flex flex-col w-full">
+      {status === "win" && (
+        <div className="absolute inset-0 flex items-center justify-center bg-white/60 backdrop-blur-sm z-20">
+          <div className="bg-white/90 p-6 rounded-xl shadow-lg text-center border border-blue-200">
+            <h3 className="text-2xl font-bold text-blue-900 mb-2">
+              축하해요!!! 🎉
+            </h3>
+            <p className="text-blue-700 mb-1">
+              Level {level}을 {elapsed.toFixed(2)}초 만에 클리어했어요!
+            </p>
+            <p className="text-blue-500 font-medium">
+              3초 후 자동으로 새 게임을 시작해요
+            </p>
+          </div>
+        </div>
+      )}
+
       <div className="flex-1 bg-blue-50 rounded-2xl flex justify-between p-6 gap-5">
+        {/* 왼쪽 보드 */}
         <div className="flex-1 flex items-center flex-col">
           <div className="flex justify-between items-center mb-4 w-full">
             <h2 className="text-xl font-semibold text-blue-900">게임 보드</h2>
@@ -119,7 +151,6 @@ export default function Gameboard() {
               게임 리셋
             </button>
           </div>
-
           <div
             className="grid gap-2 bg-blue-50 rounded-lg justify-center"
             style={{
@@ -136,12 +167,12 @@ export default function Gameboard() {
                   key={card.id}
                   onClick={() => handleCardClick(card)}
                   className={`flex items-center justify-center rounded-lg cursor-pointer text-white text-xl font-bold transition-all duration-200 select-none
-                  ${
-                    isFlipped
-                      ? "bg-blue-300 text-blue-900 border border-blue-200"
-                      : "bg-blue-600 hover:bg-blue-700"
-                  }
-                  ${level === 1 ? "w-30" : level === 2 ? "w-24" : "w-20"}`}
+                    ${
+                      isFlipped
+                        ? "bg-blue-300 text-blue-900 border border-blue-200"
+                        : "bg-blue-600 hover:bg-blue-700"
+                    }
+                    ${level === 1 ? "w-32" : level === 2 ? "w-24" : "w-20"}`}
                   style={{ aspectRatio: "1 / 1" }}
                 >
                   {isFlipped ? card.value : "?"}
@@ -167,7 +198,7 @@ export default function Gameboard() {
             <div>
               <p className="text-gray-500 text-sm">남은 시간</p>
               <p className="font-bold text-lg text-blue-700">
-                {timeLeft.toFixed(0)}
+                {timeLeft.toFixed(2)}
               </p>
             </div>
             <div>
@@ -181,9 +212,6 @@ export default function Gameboard() {
           <div className="bg-white rounded-md p-3 shadow-sm text-sm border border-blue-100">
             <p className="font-semibold mb-1 text-blue-900">안내 메시지</p>
             {status === "playing" && <p>짝을 맞춰보세요!</p>}
-            {status === "win" && (
-              <p className="text-green-600">🎉 승리! 3초 후 재시작</p>
-            )}
             {status === "lose" && (
               <p className="text-red-600">⏰ 시간 초과! 3초 후 재시작</p>
             )}
