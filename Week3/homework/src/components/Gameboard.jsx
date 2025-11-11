@@ -10,7 +10,6 @@ function shuffle(array) {
   return arr;
 }
 
-/* 4x4 덱 생성 함수 */
 function buildDeck(level = 1) {
   const LEVEL_TO_GRID = { 1: [4, 4], 2: [4, 6], 3: [6, 6] };
   const [rows, cols] = LEVEL_TO_GRID[level];
@@ -38,7 +37,7 @@ export default function Gameboard() {
   const LEVEL_TO_GRID = { 1: [4, 4], 2: [4, 6], 3: [6, 6] };
 
   const startGame = () => {
-    setDeck(buildDeck());
+    setDeck(buildDeck(level));
     setFlipped([]);
     setMatched([]);
     setStatus("playing");
@@ -103,11 +102,10 @@ export default function Gameboard() {
   const [rows, cols] = LEVEL_TO_GRID[level];
 
   return (
-    <div className="min-h-screen bg-blue-50 flex flex-col items-center justify-center p-6">
-      <div className="flex gap-8 bg-blue-100 p-6 rounded-2xl shadow-lg border border-blue-200">
-        {/* 왼쪽 게임보드 */}
-        <div>
-          <div className="flex justify-between items-center mb-4">
+    <div className="h-full flex flex-col w-full">
+      <div className="flex-1 bg-blue-50 rounded-2xl flex justify-between p-6 gap-5">
+        <div className="flex-1 flex items-center flex-col">
+          <div className="flex justify-between items-center mb-4 w-full">
             <h2 className="text-xl font-semibold text-blue-900">게임 보드</h2>
             <button
               onClick={startGame}
@@ -116,12 +114,9 @@ export default function Gameboard() {
               게임 리셋
             </button>
           </div>
-
           <div
-            className="grid gap-3 bg-blue-50 p-4 rounded-lg shadow-inner place-items-center"
+            className="grid gap-2 bg-blue-50 rounded-lg justify-center"
             style={{
-              width: "480px",
-              height: "480px",
               gridTemplateColumns: `repeat(${cols}, 1fr)`,
               gridTemplateRows: `repeat(${rows}, 1fr)`,
               boxSizing: "border-box",
@@ -135,18 +130,13 @@ export default function Gameboard() {
                   key={card.id}
                   onClick={() => handleCardClick(card)}
                   className={`flex items-center justify-center rounded-lg cursor-pointer text-white text-xl font-bold transition-all duration-200 select-none
-                    ${
-                      isFlipped
-                        ? "bg-white text-blue-700 border border-blue-200"
-                        : "bg-blue-400 hover:bg-blue-500"
-                    }`}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    aspectRatio: "1 / 1",
-                    maxWidth: "100%",
-                    maxHeight: "100%",
-                  }}
+                  ${
+                    isFlipped
+                      ? "bg-blue-300 text-blue-700 border border-blue-200"
+                      : "bg-blue-400 hover:bg-blue-500"
+                  }
+                  ${level === 1 ? "w-30" : level === 2 ? "w-24" : "w-20"}`}
+                  style={{ aspectRatio: "1 / 1" }}
                 >
                   {isFlipped ? card.value : "?"}
                 </div>
