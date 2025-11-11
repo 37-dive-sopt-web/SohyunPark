@@ -45,6 +45,11 @@ export default function Gameboard() {
     setHistory([]);
   };
 
+  // 게임 자동 시작 (처음 렌더링 시 실행)
+  useEffect(() => {
+    startGame();
+  }, [level]);
+
   /* 제한시간 타이머 */
   useEffect(() => {
     if (status !== "playing") return;
@@ -114,6 +119,7 @@ export default function Gameboard() {
               게임 리셋
             </button>
           </div>
+
           <div
             className="grid gap-2 bg-blue-50 rounded-lg justify-center"
             style={{
@@ -156,6 +162,7 @@ export default function Gameboard() {
             <option value={2}>Level 2</option>
             <option value={3}>Level 3</option>
           </select>
+
           <div className="grid grid-cols-2 text-center bg-white p-3 rounded-md shadow-sm border border-blue-100">
             <div>
               <p className="text-gray-500 text-sm">남은 시간</p>
@@ -166,16 +173,13 @@ export default function Gameboard() {
             <div>
               <p className="text-gray-500 text-sm">성공한 짝</p>
               <p className="font-bold text-lg text-blue-700">
-                {matched.length / 2}/8
+                {matched.length / 2}/{deck.length / 2 || 0}
               </p>
             </div>
           </div>
-          {/* 안내 메시지 */}
+
           <div className="bg-white rounded-md p-3 shadow-sm text-sm border border-blue-100">
             <p className="font-semibold mb-1 text-blue-900">안내 메시지</p>
-            {status === "idle" && (
-              <p>게임을 시작하려면 "게임 리셋"을 누르세요.</p>
-            )}
             {status === "playing" && <p>짝을 맞춰보세요!</p>}
             {status === "win" && (
               <p className="text-green-600">🎉 승리! 3초 후 재시작</p>
@@ -184,7 +188,7 @@ export default function Gameboard() {
               <p className="text-red-600">⏰ 시간 초과! 3초 후 재시작</p>
             )}
           </div>
-          {/* 히스토리 */}
+
           <div className="bg-white rounded-md p-3 shadow-sm text-sm flex-1 border border-blue-100 overflow-y-auto">
             <p className="font-semibold mb-1 text-blue-900">최근 히스토리</p>
             {history.length === 0 ? (
