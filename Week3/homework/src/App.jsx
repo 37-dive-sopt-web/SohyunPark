@@ -7,12 +7,14 @@ function App() {
   const [activeTab, setActiveTab] = useState("game");
 
   return (
-    <div className="flex flex-col h-screen p-5">
-      <Header activeTab={activeTab} setActiveTab={setActiveTab} />
-      <main className="flex-1 overflow-auto pt-4">
-        {activeTab === "game" && <Gameboard />}
-        {activeTab === "ranking" && <Ranking />}
-      </main>
+    <div className="h-screen p-5 flex justify-center">
+      <div className="flex flex-col items-center h-full w-full max-w-[1440px]">
+        <Header activeTab={activeTab} setActiveTab={setActiveTab} />
+        <main className="flex flex-1 overflow-auto pt-4 w-full">
+          {activeTab === "game" && <Gameboard />}
+          {activeTab === "ranking" && <Ranking />}
+        </main>
+      </div>
     </div>
   );
 }
