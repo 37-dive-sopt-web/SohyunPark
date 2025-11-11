@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Modal from "./Modal";
-import { createPortal } from "react-dom";
 
 /* Fisher-Yates 셔플 알고리즘 */
 function shuffle(array) {
@@ -61,20 +60,26 @@ export default function Gameboard() {
     const totalDuration = 45_000; // 45초 = 45000ms
     const start = performance.now();
 
+    let animationId;
+
     const tick = (now) => {
       const elapsedMs = now - start;
       const remaining = Math.max((totalDuration - elapsedMs) / 1000, 0);
       setTimeLeft(remaining);
 
-      if (remaining > 0 && status === "playing") {
-        requestAnimationFrame(tick);
-      } else if (remaining <= 0) {
+      // ✅ 게임이 끝나면 타이머 즉시 중단
+      if (status !== "playing") return;
+
+      if (remaining > 0) {
+        animationId = requestAnimationFrame(tick);
+      } else {
         setStatus("lose");
       }
     };
 
-    const animationId = requestAnimationFrame(tick);
+    animationId = requestAnimationFrame(tick);
 
+    // ✅ cleanup
     return () => cancelAnimationFrame(animationId);
   }, [status, level]);
 
@@ -125,28 +130,25 @@ export default function Gameboard() {
 
   return (
     <div className="relative h-full flex flex-col w-full">
-      {status === "win" &&
-        createPortal(
-          <Modal>
-            <h2 className="text-xl font-bold text-blue-900">축하해요 🎉</h2>
-            <p>
-              Level {level}을 {elapsed.toFixed(2)}초 만에 클리어했어요!
-            </p>
-            <p>3초 후 자동으로 새 게임을 시작해요</p>
-          </Modal>,
-          document.getElementById("modal-root")
-        )}
+      {status === "win" && (
+        <Modal
+          title="축하해요!!! 🎉"
+          message={`Level ${level}을 ${elapsed.toFixed(
+            2
+          )}초 만에 클리어했어요!`}
+          subMessage="3초 후 자동으로 새 게임을 시작해요"
+          color="blue"
+        />
+      )}
 
-      {status === "lose" &&
-        createPortal(
-          <Modal
-            title="시간 초과! 😢"
-            message={`아쉽게도 Level ${level}을 클리어하지 못했어요.`}
-            subMessage="3초 후 자동으로 새 게임을 시작해요"
-            color="red"
-          ></Modal>,
-          document.getElementById("modal-root")
-        )}
+      {status === "lose" && (
+        <Modal
+          title="시간 초과 😢"
+          message={`아쉽게도 Level ${level}을 클리어하지 못했어요.`}
+          subMessage="3초 후 자동으로 새 게임을 시작해요"
+          color="red"
+        />
+      )}
 
       <div className="flex-1 bg-blue-50 rounded-2xl flex justify-between p-6 gap-5">
         {/* 왼쪽 보드 */}
