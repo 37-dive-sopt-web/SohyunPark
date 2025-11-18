@@ -2,7 +2,6 @@ import { useState } from "react";
 import { EyeIcon, EyeOffIcon } from "../assets";
 interface LabelProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
-  name: string;
   type?: string;
 }
 
