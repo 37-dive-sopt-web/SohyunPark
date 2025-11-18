@@ -26,9 +26,13 @@ const AuthForm = ({
   ...props
 }: AuthFormProps) => {
   return (
-    <div className="w-full bg-white p-8 rounded-xl shadow-md border-gray-100 border-2 h-120 flex flex-col gap-6">
+    <div className="relative w-full bg-white p-8 pt-12 rounded-xl shadow-md border-gray-100 border-2 h-120 flex flex-col gap-6">
       {onPrev && (
-        <button type="button" onClick={onPrev}>
+        <button
+          type="button"
+          onClick={onPrev}
+          className="absolute top-4 left-4"
+        >
           <BackIcon />
         </button>
       )}
