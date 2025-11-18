@@ -12,6 +12,7 @@ interface AuthFormProps extends FormHTMLAttributes<HTMLFormElement> {
   linkTo?: string;
   linkText?: string;
   buttonType?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 const AuthForm = ({
@@ -23,6 +24,7 @@ const AuthForm = ({
   linkTo,
   linkText,
   buttonType,
+  disabled,
   ...props
 }: AuthFormProps) => {
   return (
@@ -42,7 +44,7 @@ const AuthForm = ({
       <form className="flex flex-col justify-between h-full" {...props}>
         <div className="flex flex-col gap-4">{children}</div>
         <div className="flex flex-col items-center gap-2">
-          <Button type={buttonType} onClick={onClick}>
+          <Button type={buttonType} onClick={onClick} disabled={disabled}>
             {buttonText}
           </Button>
           {linkTo && linkText && (
