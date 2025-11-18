@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 
 export default function AuthLayout() {
   return (
-    <main className="min-h-screen flex items-center justify-center flex-col">
+    <main className="min-h-screen flex items-center justify-center flex-col w-md">
       <Outlet />
     </main>
   );
