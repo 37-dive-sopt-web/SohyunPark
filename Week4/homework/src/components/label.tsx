@@ -13,7 +13,7 @@ const Label = ({ label, name, className, ...props }: LabelProps) => {
       <input
         id={name}
         name={name}
-        className={`border rounded-md px-3 py-2 ${className}`}
+        className={`border border-gray-600 rounded-md px-3 py-2 ${className}`}
         {...props}
       />
     </div>
