@@ -7,7 +7,7 @@ const Button = ({ children, ...props }: ButtonProps) => {
   return (
     <button
       type="button"
-      className="w-full bg-blue-400 rounded-md p-2 text-white"
+      className="w-full bg-blue-400 hover:bg-blue-500 transition-colors duration-200 rounded-md p-2 text-white"
       {...props}
     >
       {children}
