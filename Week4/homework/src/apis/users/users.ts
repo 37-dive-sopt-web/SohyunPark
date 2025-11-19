@@ -1,4 +1,4 @@
-import { apiGet, apiPatch, apiPost } from "../common/method";
+import { apiDelete, apiGet, apiPatch, apiPost } from "../common/method";
 
 interface UserRequest {
   username: string;
@@ -46,4 +46,8 @@ export const getUsers = async (id: number) => {
 
 export const patchUsers = async (id: number, body: UserUpdateRequest) => {
   return apiPatch(`/users/${id}`, body);
+};
+
+export const deleteUser = async (id: number) => {
+  return apiDelete(`/users/${id}`);
 };
