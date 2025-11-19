@@ -7,6 +7,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpSchema } from "../../schemas/sign-up-schema";
 import { postUsers } from "../../apis/users/users";
+import { PATH } from "../../constants/paths";
 
 type SignUpForm = z.infer<typeof SignUpSchema>;
 
@@ -54,7 +55,7 @@ const SignUp = () => {
 
   const handlePrev = () => {
     if (step <= 1) {
-      navigate("/sign-in");
+      navigate(PATH.SIGN_IN);
       return;
     }
     setStep((prev) => prev - 1);
