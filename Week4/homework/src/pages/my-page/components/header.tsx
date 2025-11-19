@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { PATH } from "../../../constants/paths";
 
 const Header = () => {
   return (
@@ -10,10 +11,10 @@ const Header = () => {
       <nav className="flex items-center">
         <ul className="flex gap-2">
           <li className="hover:font-bold">
-            <Link to="/my-page">내 정보</Link>
+            <Link to={PATH.MY_PAGE}>내 정보</Link>
           </li>
           <li className="hover:font-bold">
-            <Link to="/my-page/members">회원 조회</Link>
+            <Link to={PATH.MEMBERS}>회원 조회</Link>
           </li>
           <li className="hover:font-bold">
             <button>로그아웃</button>
