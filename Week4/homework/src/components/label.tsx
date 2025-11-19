@@ -5,13 +5,7 @@ interface LabelProps extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: string;
 }
 
-const Label = ({
-  label,
-  name,
-  className,
-  type = "text",
-  ...props
-}: LabelProps) => {
+const Label = ({ label, className, type = "text", ...props }: LabelProps) => {
   const [show, setShow] = useState(false);
 
   const isPassword = type === "password";
@@ -19,17 +13,17 @@ const Label = ({
 
   return (
     <div className="flex flex-col gap-1 w-full">
-      <label htmlFor={name} className="text-sm font-medium text-gray-700">
+      <label htmlFor={props.name} className="text-sm font-medium text-gray-700">
         {label}
       </label>
 
       <div className="relative w-full">
         <input
-          id={name}
-          name={name}
+          {...props}
+          id={props.name}
+          name={props.name}
           type={currentType}
           className={`w-full border border-gray-600 rounded-md px-3 py-2 pr-10 ${className}`}
-          {...props}
         />
 
         {isPassword && (
