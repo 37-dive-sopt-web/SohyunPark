@@ -83,7 +83,13 @@ const SignUp = () => {
 
   const isStepValid = (() => {
     if (step === 1) return !!id;
-    if (step === 2) return !!password && !!passwordCheck;
+    if (step === 2)
+      return (
+        !errors.password &&
+        !errors.passwordCheck &&
+        !!password &&
+        !!passwordCheck
+      );
     if (step === 3) return !!name && !!email && !!age;
     return false;
   })();
