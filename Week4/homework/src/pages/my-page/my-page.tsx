@@ -49,6 +49,10 @@ const MyPage = () => {
     }
   };
 
+  if (!user) {
+    return <p className="w-full text-center py-10">로딩중...</p>;
+  }
+
   return (
     <div className="w-full flex items-center">
       <AuthForm
@@ -59,7 +63,7 @@ const MyPage = () => {
       >
         <div className="flex justify-between">
           <p>아이디</p>
-          <p>{user?.username}</p>
+          <p>{user.username}</p>
         </div>
 
         <Label

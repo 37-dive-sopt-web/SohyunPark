@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router";
-import { postLogin } from "../../apis/users/users";
+import { getUsers, postLogin } from "../../apis/users/users";
 import AuthForm from "../../components/auth-form";
 import Label from "../../components/label";
 import { PATH } from "../../constants/paths";
 import { useForm } from "react-hook-form";
+import { useUser } from "../../hooks/use-users";
 
 interface SignInForm {
   id: string;
@@ -12,9 +13,9 @@ interface SignInForm {
 
 const SignIn = () => {
   const navigate = useNavigate();
+  const { setUser } = useUser();
 
   const { register, handleSubmit } = useForm<SignInForm>();
-
   const onSubmit = async (data: SignInForm) => {
     try {
       const res = await postLogin({
@@ -27,6 +28,8 @@ const SignIn = () => {
       if (res?.userId) {
         console.log(res);
         localStorage.setItem("userId", String(res.userId));
+        const userData = await getUsers(res.userId);
+        setUser(userData);
       }
 
       alert("로그인되었습니다!");
