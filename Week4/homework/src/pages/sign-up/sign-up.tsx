@@ -16,11 +16,13 @@ const SignUp = () => {
   const {
     register,
     handleSubmit,
+    trigger,
     watch,
     formState: { errors },
   } = useForm<SignUpForm>({
     resolver: zodResolver(SignUpSchema),
     mode: "onChange",
+    shouldUnregister: false,
   });
 
   const id = watch("id");
@@ -30,7 +32,22 @@ const SignUp = () => {
   const email = watch("email");
   const age = watch("age");
 
-  const handleClick = () => {
+  const handleClick = async () => {
+    if (step === 1) {
+      const valid = await trigger("id");
+      if (!valid) return;
+    }
+
+    if (step === 2) {
+      const valid = await trigger(["password", "passwordCheck"]);
+      if (!valid) return;
+    }
+
+    if (step === 3) {
+      const valid = await trigger(["name", "email", "age"]);
+      if (!valid) return;
+    }
+
     setStep((prev) => Math.min(prev + 1, 3));
   };
 
@@ -43,7 +60,6 @@ const SignUp = () => {
   };
 
   const onSubmit = (data: SignUpForm) => {
-    console.log("최종 회원가입 데이터:", data);
     alert(`${data.name}님, 회원가입이 완료되었습니다!`);
     navigate("/sign-in");
   };
@@ -52,6 +68,7 @@ const SignUp = () => {
     if (step === 1) return !!id;
     if (step === 2) return !!password && !!passwordCheck;
     if (step === 3) return !!name && !!email && !!age;
+    return false;
   })();
 
   return (
