@@ -30,18 +30,16 @@ const SignUp = () => {
   const email = watch("email");
   const age = watch("age");
 
-  const handleClick = async () => {
+  const handleClick = () => {
     setStep((prev) => Math.min(prev + 1, 3));
   };
 
   const handlePrev = () => {
-    setStep((prev) => {
-      if (prev <= 1) {
-        navigate("/sign-in");
-        return 1;
-      }
-      return prev - 1;
-    });
+    if (step <= 1) {
+      navigate("/sign-in");
+      return;
+    }
+    setStep((prev) => prev - 1);
   };
 
   const onSubmit = (data: SignUpForm) => {
