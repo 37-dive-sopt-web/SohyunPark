@@ -1,12 +1,39 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PATH } from "../../../constants/paths";
+import { useEffect, useState } from "react";
+import { getUsers } from "../../../apis/users/users";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const [user, setUser] = useState<{ name: string } | null>(null);
+
+  useEffect(() => {
+    const id = localStorage.getItem("userId");
+    if (!id) return;
+
+    const fetchUser = async () => {
+      try {
+        const res = await getUsers(Number(id));
+
+        setUser(res);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    navigate(PATH.SIGN_IN);
+  };
+
   return (
     <header className="w-full flex justify-between bg-blue-300 px-10 py-4 itmes-center">
       <div className="flex flex-col gap-1">
         <h3 className="text-2xl font-bold">마이페이지</h3>
-        <p className="text-lg font-medium">안녕하세요, 박소현님</p>
+        <p className="text-lg font-medium">안녕하세요, {user?.name}님</p>
       </div>
       <nav className="flex items-center">
         <ul className="flex gap-2">
@@ -17,10 +44,12 @@ const Header = () => {
             <Link to={PATH.MEMBERS}>회원 조회</Link>
           </li>
           <li className="hover:font-bold">
-            <button>로그아웃</button>
+            <button type="button" onClick={handleLogout}>
+              로그아웃
+            </button>
           </li>
           <li className="hover:font-bold">
-            <button>회원탈퇴</button>
+            <button type="button">회원탈퇴</button>
           </li>
         </ul>
       </nav>

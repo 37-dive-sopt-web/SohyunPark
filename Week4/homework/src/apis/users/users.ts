@@ -1,4 +1,4 @@
-import { apiPost } from "../common/method";
+import { apiGet, apiPost } from "../common/method";
 
 interface UserRequest {
   username: string;
@@ -17,10 +17,23 @@ interface LoginResponse {
   message: string;
 }
 
+export interface UserResponse {
+  id: number;
+  username: string;
+  password: string;
+  name: string;
+  email: string;
+  age: number;
+}
+
 export const postUsers = async (body: UserRequest) => {
   return apiPost("/users", body);
 };
 
 export const postLogin = async (body: LoginRequest) => {
   return apiPost<LoginResponse>("/auth/login", body);
+};
+
+export const getUsers = async (id: number) => {
+  return apiGet<UserResponse>(`/users/${id}`);
 };
