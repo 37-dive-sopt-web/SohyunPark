@@ -1,5 +1,5 @@
-import AuthForm from "../components/auth-form";
-import Label from "../components/label";
+import AuthForm from "../../components/auth-form";
+import Label from "../../components/label";
 
 const SignIn = () => {
   return (

@@ -1,11 +1,11 @@
 import { useState } from "react";
-import AuthForm from "../components/auth-form";
-import Label from "../components/label";
+import AuthForm from "../../components/auth-form";
+import Label from "../../components/label";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SignUpSchema } from "../schemas/sign-up-schema";
+import { SignUpSchema } from "../../schemas/sign-up-schema";
 
 type SignUpForm = z.infer<typeof SignUpSchema>;
 
