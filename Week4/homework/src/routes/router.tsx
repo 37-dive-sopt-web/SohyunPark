@@ -1,20 +1,30 @@
 import { createBrowserRouter } from "react-router-dom";
 import AuthLayout from "../layouts/auth-layout";
 import Layout from "../layouts/layout";
-import MyPage from "../pages/my-page";
-import SignIn from "../pages/sign-in";
-import SignUp from "../pages/sign-up";
+import MyPage from "../pages/my-page/my-page";
+import SignIn from "../pages/sign-in/sign-in";
+import SignUp from "../pages/sign-up/sign-up";
+import Members from "../pages/my-page/members";
+import { PATH } from "../constants/paths";
 
 export const router = createBrowserRouter([
   {
     element: <AuthLayout />,
     children: [
-      { path: "/sign-in", element: <SignIn /> },
-      { path: "/sign-up", element: <SignUp /> },
+      { path: PATH.SIGN_IN, element: <SignIn /> },
+      { path: PATH.SIGN_UP, element: <SignUp /> },
     ],
   },
   {
     element: <Layout />,
-    children: [{ path: "/my-page", element: <MyPage /> }],
+    children: [
+      {
+        path: PATH.MY_PAGE,
+        children: [
+          { index: true, element: <MyPage /> },
+          { path: "members", element: <Members /> },
+        ],
+      },
+    ],
   },
 ]);
