@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpSchema } from "../../schemas/sign-up-schema";
+import { postUsers } from "../../apis/users/users";
 
 type SignUpForm = z.infer<typeof SignUpSchema>;
 
@@ -59,9 +60,24 @@ const SignUp = () => {
     setStep((prev) => prev - 1);
   };
 
-  const onSubmit = (data: SignUpForm) => {
-    alert(`${data.name}님, 회원가입이 완료되었습니다!`);
-    navigate("/sign-in");
+  const onSubmit = async (data: SignUpForm) => {
+    const body = {
+      username: data.id!,
+      password: data.password!,
+      name: data.name!,
+      email: data.email!,
+      age: Number(data.age),
+    };
+
+    try {
+      await postUsers(body);
+
+      alert(`${data.name}님, 회원가입이 완료되었습니다!`);
+      navigate("/sign-in");
+    } catch (error) {
+      console.error(error);
+      alert("회원가입 중 문제가 발생했습니다.");
+    }
   };
 
   const isStepValid = (() => {
