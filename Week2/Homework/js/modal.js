@@ -4,13 +4,20 @@ import { generateId, validateMember } from "./utils.js";
 import { getFormData } from "./utils.js";
 
 export function setupModal(modal, modalForm, closeModalBtn, members, tbody) {
+  const hideModal = () => modal.classList.remove("show");
+
   modal.addEventListener("click", (e) => {
-    if (e.target === modal) modal.classList.remove("show");
+    if (e.target === modal) hideModal();
   });
 
   closeModalBtn.addEventListener("click", () => {
-    modal.classList.remove("show");
+    hideModal();
   });
+
+  const closeModal = () => {
+    hideModal();
+    modalForm.reset();
+  };
 
   modalForm.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -38,7 +45,6 @@ export function setupModal(modal, modalForm, closeModalBtn, members, tbody) {
     members.push(newMember);
     saveMembers(members);
     renderTable(tbody, members);
-    modal.classList.remove("show");
-    modalForm.reset();
+    closeModal();
   });
 }
