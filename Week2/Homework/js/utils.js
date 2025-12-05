@@ -52,3 +52,9 @@ export function getFormData(prefix = "") {
     age,
   };
 }
+
+export const qs = (selector, parent = document) => {
+  const el = parent.querySelector(selector);
+  if (!el) throw new Error(`Element not found: ${selector}`);
+  return el;
+};

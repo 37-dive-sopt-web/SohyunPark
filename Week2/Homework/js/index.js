@@ -1,19 +1,20 @@
-import { loadMembers, saveMembers } from "./storage.js";
+import { loadMembers } from "./storage.js";
 import { renderTable, resetSelectAll, setupDelete } from "./table.js";
 import { setupFiltering } from "./filter.js";
 import { setupModal } from "./modal.js";
+import { qs } from "./utils.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const filteringForm = document.querySelector(".search");
-  const deleteBtn = document.querySelector("#delete-btn");
-  const addBtn = document.querySelector("#add-btn");
-  const tbody = document.querySelector(".table-section__table-body");
+  const filteringForm = qs(".search");
+  const deleteBtn = qs("#delete-btn");
+  const addBtn = qs("#add-btn");
+  const tbody = qs(".table-section__table-body");
   let members = loadMembers();
-  const selectAll = document.querySelector("#select-all");
+  const selectAll = qs("#select-all");
 
-  const modal = document.querySelector(".modal");
-  const closeModalBtn = document.querySelector(".modal__close-btn");
-  const modalForm = document.querySelector(".modal__form");
+  const modal = qs(".modal");
+  const closeModalBtn = qs(".modal__close-btn");
+  const modalForm = qs(".modal__form");
 
   renderTable(tbody, members);
   setupFiltering(filteringForm, members, tbody);
