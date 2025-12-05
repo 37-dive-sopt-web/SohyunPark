@@ -1,3 +1,4 @@
+import { MESSAGES } from "./constants.js";
 import { saveMembers } from "./storage.js";
 import { renderTable } from "./table.js";
 import { generateId, validateMember } from "./utils.js";
@@ -28,17 +29,11 @@ export function setupModal(modal, modalForm, closeModalBtn, members, tbody) {
 
     const newMember = {
       id: newId,
-      name: formData.name,
-      englishName: formData.englishName,
-      github: formData.github,
-      gender: formData.gender,
-      role: formData.role,
-      codeReviewGroup: formData.codeReviewGroup,
-      age: formData.age,
+      ...formData,
     };
 
     if (!validateMember(newMember)) {
-      alert("모든 필드를 올바르게 입력해주세요!");
+      alert(MESSAGES.INVALID_FORM);
       return;
     }
 

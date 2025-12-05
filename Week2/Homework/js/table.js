@@ -1,3 +1,4 @@
+import { MESSAGES } from "./constants.js";
 import { saveMembers } from "./storage.js";
 
 export function renderTable(tbody, data) {
@@ -37,7 +38,7 @@ export function setupDelete(deleteBtn, tbody, members, selectAll) {
     );
 
     if (checked.length === 0) {
-      alert("삭제할 멤버가 없습니다.");
+      alert(MESSAGES.NO_SELECTION);
       return;
     }
 
@@ -64,7 +65,7 @@ export function resetSelectAll(tbody, selectAll) {
   tbody.addEventListener("change", (e) => {
     if (e.target.type === "checkbox") {
       const checkboxes = tbody.querySelectorAll("input[type='checkbox']");
-      const allChecked = Array.from(checkboxes).every((box) => box.checked);
+      const allChecked = [...checkboxes].every((box) => box.checked);
       selectAll.checked = allChecked;
     }
   });
