@@ -1,32 +1,65 @@
 import { MESSAGES } from "./constants.js";
 import { saveMembers } from "./storage.js";
 
+// 공통 td 생성 함수
+function createTd(text) {
+  const td = document.createElement("td");
+  td.textContent = text;
+  return td;
+}
+
+// 링크 td 생성 함수
+function createLinkTd(url, label) {
+  const td = document.createElement("td");
+  const a = document.createElement("a");
+  a.href = url;
+  a.target = "_blank";
+  a.rel = "noopener noreferrer";
+  a.textContent = label;
+  td.appendChild(a);
+  return td;
+}
+
+// 체크박스 td 생성
+function createCheckboxTd(id) {
+  const td = document.createElement("td");
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  checkbox.id = id;
+  td.appendChild(checkbox);
+  return td;
+}
+
 export function renderTable(tbody, data) {
   tbody.innerHTML = "";
 
   if (data.length === 0) {
     const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td colspan="8" style="padding: 20px; color: gray;">
-        데이터가 없습니다.
-      </td>
-    `;
+    const td = document.createElement("td");
+    td.colSpan = 8;
+    td.style.padding = "20px";
+    td.style.color = "gray";
+    td.textContent = "데이터가 없습니다.";
+    tr.appendChild(td);
     tbody.appendChild(tr);
     return;
   }
 
   data.forEach((member) => {
     const tr = document.createElement("tr");
-    tr.innerHTML = `
-        <td><input type="checkbox" id="${member.id}"/></td>
-        <td>${member.name}</td>
-        <td>${member.englishName}</td>
-        <td><a href="https://github.com/${member.github}" target="_blank">${member.github}</a></td>
-        <td>${member.gender}</td>
-        <td>${member.role}</td>
-        <td>${member.codeReviewGroup}</td>
-        <td>${member.age}</td>
-      `;
+
+    const cells = [
+      createCheckboxTd(member.id),
+      createTd(member.name),
+      createTd(member.englishName),
+      createLinkTd(`https://github.com/${member.github}`, member.github),
+      createTd(member.gender),
+      createTd(member.role),
+      createTd(member.codeReviewGroup),
+      createTd(member.age),
+    ];
+
+    tr.append(...cells);
     tbody.appendChild(tr);
   });
 }
