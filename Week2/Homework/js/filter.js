@@ -1,5 +1,6 @@
 import { renderTable } from "./table.js";
 import { getFormData } from "./utils.js";
+import { Gender, Role } from "./constants.js";
 
 export function setupFiltering(filteringForm, members, tbody) {
   filteringForm.addEventListener("submit", (e) => {
@@ -17,8 +18,8 @@ export function setupFiltering(filteringForm, members, tbody) {
             .includes(englishName.toLowerCase())) &&
         (!github ||
           member.github.toLowerCase().includes(github.toLowerCase())) &&
-        (gender === "all" || member.gender === gender) &&
-        (role === "all" || member.role === role) &&
+        (gender === Gender.ALL || member.gender === gender) &&
+        (role === Role.ALL || member.role === role) &&
         (isNaN(codeReviewGroup) ||
           member.codeReviewGroup === codeReviewGroup) &&
         (isNaN(age) || member.age === age)

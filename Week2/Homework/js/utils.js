@@ -25,22 +25,16 @@ export function validateMember({
 export function getFormData(prefix = "") {
   const normalizeId = (id) => (prefix ? `#${prefix}-${id}` : `#${id}`);
 
-  const name = document.querySelector(normalizeId("name"))?.value.trim() || "";
-  const englishName =
-    document.querySelector(normalizeId("englishName"))?.value.trim() || "";
-  const github =
-    document.querySelector(normalizeId("githubId"))?.value.trim() || "";
-  const gender =
-    document.querySelector(normalizeId("gender"))?.value || "select";
-  const role = document.querySelector(normalizeId("role"))?.value || "select";
+  const name = qs(normalizeId("name"))?.value.trim() || "";
+  const englishName = qs(normalizeId("englishName"))?.value.trim() || "";
+  const github = qs(normalizeId("githubId"))?.value.trim() || "";
+  const gender = qs(normalizeId("gender"))?.value || "select";
+  const role = qs(normalizeId("role"))?.value || "select";
   const codeReviewGroup = parseInt(
-    document.querySelector(normalizeId("codeReviewGroup"))?.value || "",
+    qs(normalizeId("codeReviewGroup"))?.value || "",
     10
   );
-  const age = parseInt(
-    document.querySelector(normalizeId("age"))?.value || "",
-    10
-  );
+  const age = parseInt(qs(normalizeId("age"))?.value || "", 10);
 
   return {
     name,
