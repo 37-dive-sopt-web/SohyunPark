@@ -1,25 +1,26 @@
 import Button from "./Button";
 
+const TABS = [
+  { key: "game", label: "게임" },
+  { key: "ranking", label: "랭킹" },
+];
+
 const Header = ({ activeTab, setActiveTab }) => {
   return (
-    <header className="flex justify-between bg-blue-100 items-center h-14 px-4 rounded-xl shadow-sm w-full">
+    <header className="flex items-center justify-between bg-blue-100 h-14 px-4 rounded-xl shadow-sm w-full">
       <h1 className="font-semibold text-lg">숫자 카드 짝 맞추기</h1>
 
-      <div className="flex gap-2">
-        <Button
-          active={activeTab === "game"}
-          onClick={() => setActiveTab("game")}
-        >
-          게임
-        </Button>
-
-        <Button
-          active={activeTab === "ranking"}
-          onClick={() => setActiveTab("ranking")}
-        >
-          랭킹
-        </Button>
-      </div>
+      <nav className="flex gap-2">
+        {TABS.map(({ key, label }) => (
+          <Button
+            key={key}
+            active={activeTab === key}
+            onClick={() => setActiveTab(key)}
+          >
+            {label}
+          </Button>
+        ))}
+      </nav>
     </header>
   );
 };
