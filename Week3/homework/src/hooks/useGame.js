@@ -10,6 +10,7 @@ export function useGame(level) {
   const [history, setHistory] = useState([]);
   const [elapsed, setElapsed] = useState(0);
   const [startTime, setStartTime] = useState(null);
+  const [notice, setNotice] = useState("");
 
   const startGame = useCallback(() => {
     const { limit } = LEVEL_CONFIG[level];
@@ -106,9 +107,23 @@ export function useGame(level) {
 
   /* 카드 클릭 처리 */
   const handleCardClick = (card) => {
-    if (status !== "playing") return;
-    if (flipped.includes(card.id) || matched.includes(card.id)) return;
-    if (flipped.length === 2) return;
+    if (status !== "playing") {
+      setNotice("게임이 진행 중이 아닙니다.");
+      return;
+    }
+    if (matched.includes(card.id)) {
+      setNotice("이미 매칭된 카드입니다.");
+      return;
+    }
+    if (flipped.includes(card.id)) {
+      setNotice("이미 선택한 카드입니다.");
+      return;
+    }
+    if (flipped.length === 2) {
+      setNotice("잠시 기다려주세요.");
+      return;
+    }
+    setNotice("");
 
     const newFlipped = [...flipped, card.id];
     setFlipped(newFlipped);
@@ -141,6 +156,7 @@ export function useGame(level) {
     timeLeft,
     elapsed,
     history,
+    notice,
     startGame,
     handleCardClick,
   };

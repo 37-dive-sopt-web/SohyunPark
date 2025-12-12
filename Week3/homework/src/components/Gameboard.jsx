@@ -15,6 +15,7 @@ export default function Gameboard() {
     timeLeft,
     history,
     elapsed,
+    notice,
     startGame,
     handleCardClick,
   } = useGame(level);
@@ -106,9 +107,12 @@ export default function Gameboard() {
 
           <div className="bg-white rounded-md p-3 shadow-sm text-sm border border-blue-100">
             <p className="font-semibold mb-1 text-blue-900">안내 메시지</p>
-            {status === "playing" && <p>짝을 맞춰보세요!</p>}
-            {status === "lose" && (
+            {notice ? (
+              <p className="text-orange-600">{notice}</p>
+            ) : status === "lose" ? (
               <p className="text-red-600">⏰ 시간 초과! 3초 후 재시작</p>
+            ) : (
+              <p>짝을 맞춰보세요!</p>
             )}
           </div>
 
