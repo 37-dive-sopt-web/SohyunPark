@@ -122,10 +122,10 @@ export default function Gameboard() {
                   <li
                     key={i}
                     className={`text-sm ${
-                      h.includes("성공") ? "text-green-600" : "text-red-500"
+                      h.isMatch ? "text-green-600" : "text-red-500"
                     }`}
                   >
-                    {h}
+                    {h.text}
                   </li>
                 ))}
               </ul>

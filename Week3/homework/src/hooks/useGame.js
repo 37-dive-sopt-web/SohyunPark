@@ -117,7 +117,10 @@ export function useGame(level) {
       const [a, b] = newFlipped.map((id) => deck.find((c) => c.id === id));
       const isMatch = a.value === b.value;
       setHistory((prev) => [
-        `${a.value},${b.value} → ${isMatch ? "성공" : "실패"}`,
+        {
+          text: `${a.value},${b.value} → ${isMatch ? "성공" : "실패"}`,
+          isMatch,
+        },
         ...prev.slice(0, 6),
       ]);
 
