@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { buildDeck, LEVEL_CONFIG } from "../utils/GameUtil";
 
 export function useGame(level) {
@@ -11,7 +11,7 @@ export function useGame(level) {
   const [elapsed, setElapsed] = useState(0);
   const [startTime, setStartTime] = useState(null);
 
-  const startGame = () => {
+  const startGame = useCallback(() => {
     const { limit } = LEVEL_CONFIG[level];
     setDeck(buildDeck(level));
     setFlipped([]);
@@ -21,12 +21,12 @@ export function useGame(level) {
     setElapsed(0);
     setHistory([]);
     setStartTime(performance.now());
-  };
+  }, [level]);
 
   /* ✅ 자동 시작 */
   useEffect(() => {
     startGame();
-  }, [level]);
+  }, [level, startGame]);
 
   /* 제한시간 타이머 */
   useEffect(() => {
