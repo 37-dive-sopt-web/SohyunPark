@@ -79,7 +79,15 @@ export function useGame(level) {
         clearTime: parseFloat(elapsed.toFixed(2)),
       };
 
-      const existing = JSON.parse(localStorage.getItem("rankings") || "[]");
+      let existing = [];
+
+      try {
+        const raw = localStorage.getItem("rankings");
+        existing = raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        console.warn("rankings 데이터 파싱 실패, 초기화합니다.", e);
+        existing = [];
+      }
       const updated = [...existing, record]
         .sort((a, b) => a.clearTime - b.clearTime)
         .slice(0, 50);
