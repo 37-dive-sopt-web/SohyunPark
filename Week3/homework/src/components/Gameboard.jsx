@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import Modal from "./Modal";
-import { buildDeck, LEVEL_CONFIG } from "../utils/gameUtil123";
+import { buildDeck, LEVEL_CONFIG } from "../utils/GameUtil";
 import Card from "./Card";
-import { MODAL_MESSAGES } from "../constants/modalMessage123";
+import { MODAL_MESSAGES } from "../constants/ModalMessage";
 
 export default function Gameboard() {
   const [level, setLevel] = useState(1);
