@@ -90,7 +90,12 @@ export function useGame(level) {
         existing = [];
       }
       const updated = [...existing, record]
-        .sort((a, b) => a.clearTime - b.clearTime)
+        .sort((a, b) => {
+          if (b.level !== a.level) {
+            return b.level - a.level;
+          }
+          return a.clearTime - b.clearTime;
+        })
         .slice(0, 50);
 
       localStorage.setItem("rankings", JSON.stringify(updated));
