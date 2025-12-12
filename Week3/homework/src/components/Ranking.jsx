@@ -5,7 +5,14 @@ const Ranking = () => {
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("rankings") || "[]");
-    const sorted = saved.sort((a, b) => a.clearTime - b.clearTime);
+
+    const sorted = [...saved].sort((a, b) => {
+      if (b.level !== a.level) {
+        return b.level - a.level;
+      }
+      return a.clearTime - b.clearTime;
+    });
+
     setRecords(sorted);
   }, []);
 

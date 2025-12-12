@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>웹계인 관리 페이지</title>
+    <link rel="stylesheet" href="css/index.css" />
+    <script type="module" src="js/index.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <span>👽</span>
+      <h1>웹계인 관리 페이지</h1>
+      <p>🛸DIVE SOPT 37기 웹 박소현🛸</p>
+    </header>
+    <main class="main">
+      <section>
+        <form class="search">
+          <legend class="search__title">검색 필터</legend>
+          <fieldset class="search__group">
+            <label class="search__label">
+              <span class="search__label-text">이름</span>
+              <input
+                id="name"
+                class="search__input"
+                placeholder="이름을 입력하세요."
+              />
+            </label>
+            <label class="search__label">
+              <span class="search__label-text">영문 이름</span>
+              <input
+                id="englishName"
+                class="search__input"
+                placeholder="영문 이름을 입력하세요."
+              />
+            </label>
+            <div class="search__inner-group">
+              <label class="search__label">
+                <span class="search__label-text">깃허브</span>
+                <input
+                  id="githubId"
+                  class="search__input"
+                  placeholder="깃허브 아이디를 입력하세요."
+                />
+              </label>
+              <label class="search__label">
+                <span class="search__label-text">성별</span>
+                <select id="gender" class="search__select">
+                  <option value="all">전체</option>
+                  <option value="male">남자</option>
+                  <option value="female">여자</option>
+                </select>
+              </label>
+              <label class="search__label">
+                <span class="search__label-text">역할</span>
+                <select id="role" class="search__select">
+                  <option value="all">전체</option>
+                  <option value="OB">OB</option>
+                  <option value="YB">YB</option>
+                </select>
+              </label>
+            </div>
+            <div class="search__inner-group">
+              <label class="search__label">
+                <span class="search__label-text">금잔디조</span>
+                <input
+                  id="codeReviewGroup"
+                  class="search__input"
+                  placeholder="금잔디조를 입력하세요.(1~9)"
+                />
+              </label>
+              <label class="search__label">
+                <span class="search__label-text">나이</span>
+                <input
+                  id="age"
+                  class="search__input"
+                  placeholder="나이을 입력하세요."
+                />
+              </label>
+            </div>
+            <div class="search__inner-group">
+              <button type="submit" class="search___btn">적용</button>
+              <button type="reset" class="search___btn">초기화</button>
+            </div>
+          </fieldset>
+        </form>
+      </section>
+      <section class="table-section">
+        <header class="table-section__header">
+          <h2>37기 웹 파트 목록</h2>
+          <div>
+            <button id="delete-btn" class="table-section__btn">
+              선택 삭제
+            </button>
+            <button id="add-btn" class="table-section__btn">추가</button>
+          </div>
+        </header>
+
+        <table class="table-section__table">
+          <thead class="table-section__table-head">
+            <tr>
+              <th scope="col">
+                <input
+                  id="select-all"
+                  type="checkbox"
+                  class="table-section__table-head-checkbox"
+                />
+              </th>
+              <th scope="col">이름</th>
+              <th scope="col">영문 이름</th>
+              <th scope="col">깃허브</th>
+              <th scope="col">성별</th>
+              <th scope="col">역할</th>
+              <th scope="col">금잔디조</th>
+              <th scope="col">나이</th>
+            </tr>
+          </thead>
+          <tbody class="table-section__table-body"></tbody>
+        </table>
+      </section>
+    </main>
+    <dialog class="modal">
+      <div class="modal__content">
+        <div class="modal__header">
+          <h2>멤버 추가</h2>
+          <button class="modal__close-btn">X</button>
+        </div>
+        <form class="modal__form">
+          <label class="modal__label">
+            이름
+            <input
+              id="modal-name"
+              class="modal__input"
+              placeholder="이름을 입력하세요."
+            />
+          </label>
+          <label class="modal__label">
+            영문 이름
+            <input
+              id="modal-englishName"
+              class="modal__input"
+              placeholder="영문 이름을 입력하세요."
+            />
+          </label>
+          <label class="modal__label">
+            깃허브
+            <input
+              id="modal-githubId"
+              class="modal__input"
+              placeholder="깃허브 아이디를 입력하세요."
+            />
+          </label>
+          <div class="modal__inner-group">
+            <label class="modal__label">
+              성별
+              <select id="modal-gender" class="modal__select">
+                <option value="select">선택</option>
+                <option value="male">남자</option>
+                <option value=" female">여자</option>
+              </select> </label
+            ><label class="modal__label">
+              역할
+              <select id="modal-role" class="modal__select">
+                <option value="select">선택</option>
+                <option value="OB">OB</option>
+                <option value="YB">YB</option>
+              </select>
+            </label>
+          </div>
+          <div class="modal__inner-group">
+            <label class="modal__label">
+              금잔디조
+              <input
+                id="modal-codeReviewGroup"
+                class="modal__input"
+                placeholder="금잔디조를 입력하세요.(1~9)"
+              />
+            </label>
+            <label class="modal__label">
+              나이
+              <input
+                id="modal-age"
+                class="modal__input"
+                placeholder="나이를 입력하세요."
+              />
+            </label>
+          </div>
+
+          <button type="submit" id="modal__add-btn" class="modal__add-btn">
+            추가
+          </button>
+        </form>
+      </div>
+    </ㅇ>
+  </body>
+</html>
