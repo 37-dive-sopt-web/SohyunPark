@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Modal from "./Modal";
 import { buildDeck, LEVEL_CONFIG } from "../utils/GameUtil";
 import Card from "./Card";
+import { MODAL_MESSAGES } from "../constants/ModalMessage";
 
 export default function Gameboard() {
   const [level, setLevel] = useState(1);
@@ -130,24 +131,8 @@ export default function Gameboard() {
 
   return (
     <div className="relative h-full flex flex-col w-full">
-      {status === "win" && (
-        <Modal
-          title="축하해요!!! 🎉"
-          message={`Level ${level}을 ${elapsed.toFixed(
-            2
-          )}초 만에 클리어했어요!`}
-          subMessage="3초 후 자동으로 새 게임을 시작해요"
-          color="blue"
-        />
-      )}
-      {status === "lose" && (
-        <Modal
-          title="시간 초과 😢"
-          message={`아쉽게도 Level ${level}을 클리어하지 못했어요.`}
-          subMessage="3초 후 자동으로 새 게임을 시작해요"
-          color="red"
-        />
-      )}
+      {status === "win" && <Modal {...MODAL_MESSAGES.WIN} />}
+      {status === "lose" && <Modal {...MODAL_MESSAGES.LOSE} />}
 
       <div className="flex-1 bg-blue-50 rounded-2xl flex justify-between p-6 gap-5">
         {/* 왼쪽 보드 */}
