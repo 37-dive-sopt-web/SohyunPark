@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Modal from "./Modal";
 import { buildDeck, LEVEL_CONFIG } from "../utils/GameUtil";
+import Card from "./Card";
 
 export default function Gameboard() {
   const [level, setLevel] = useState(1);
@@ -12,6 +13,8 @@ export default function Gameboard() {
   const [history, setHistory] = useState([]);
   const [elapsed, setElapsed] = useState(0);
   const [startTime, setStartTime] = useState(null);
+
+  const { rows, cols } = LEVEL_CONFIG[level];
 
   /* ✅ 게임 시작 함수 */
   const startGame = () => {
@@ -125,8 +128,6 @@ export default function Gameboard() {
     }
   };
 
-  const { rows, cols } = LEVEL_CONFIG[level];
-
   return (
     <div className="relative h-full flex flex-col w-full">
       {status === "win" && (
@@ -172,20 +173,13 @@ export default function Gameboard() {
               const isFlipped =
                 flipped.includes(card.id) || matched.includes(card.id);
               return (
-                <div
+                <Card
                   key={card.id}
+                  card={card}
+                  isFlipped={isFlipped}
+                  level={level}
                   onClick={() => handleCardClick(card)}
-                  className={`flex items-center justify-center rounded-lg cursor-pointer text-white text-xl font-bold transition-all duration-200 select-none
-                    ${
-                      isFlipped
-                        ? "bg-blue-300 text-blue-900 border border-blue-200"
-                        : "bg-blue-600 hover:bg-blue-700"
-                    }
-                    ${level === 1 ? "w-32" : level === 2 ? "w-24" : "w-20"}`}
-                  style={{ aspectRatio: "1 / 1" }}
-                >
-                  {isFlipped ? card.value : "?"}
-                </div>
+                />
               );
             })}
           </div>
