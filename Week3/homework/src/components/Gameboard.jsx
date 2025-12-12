@@ -65,11 +65,13 @@ export default function Gameboard() {
             {deck.map((card) => {
               const isFlipped =
                 flipped.includes(card.id) || matched.includes(card.id);
+              const isMatched = matched.includes(card.id);
               return (
                 <Card
                   key={card.id}
                   card={card}
                   isFlipped={isFlipped}
+                  isMatched={isMatched}
                   level={level}
                   onClick={() => handleCardClick(card)}
                 />
